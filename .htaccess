@@ -1,0 +1,32 @@
+# Set default index page
+DirectoryIndex index.php
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Redirect to index.php if accessing the root directory
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ index.php [L]
+
+# Prevent directory listing
+Options -Indexes
+
+# Handle PHP errors
+php_flag display_errors off
+php_value error_reporting E_ALL
+
+# Set default character set
+AddDefaultCharset UTF-8
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json
+</IfModule>
+
+# Set security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule> 
